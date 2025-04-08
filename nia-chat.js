@@ -1,38 +1,61 @@
-// nia-widget.js
+// 👉 Inserta el CSS desde Vercel
+const cssLink = document.createElement("link");
+cssLink.rel = "stylesheet";
+cssLink.href = "https://nia-frontend-lilac.vercel.app/nia-style.css";
+document.head.appendChild(cssLink);
 
-(function() {
-    // Obtener el script actual (el que contiene este código)
-    const currentScript = document.currentScript;
-  
-    // Leer el client_id desde el atributo data-client-id
-    const clientId = currentScript.getAttribute('data-client-id') || 'default';
-  
-    // Crear el contenedor del iframe
-    const iframeContainer = document.createElement('div');
-    iframeContainer.id = 'nia-chat-widget';
-    iframeContainer.style.position = 'fixed';
-    iframeContainer.style.bottom = '20px';
-    iframeContainer.style.right = '20px';
-    iframeContainer.style.width = '350px';
-    iframeContainer.style.height = '500px';
-    iframeContainer.style.zIndex = '9999';
-    iframeContainer.style.border = 'none';
-    iframeContainer.style.boxShadow = '0 0 20px rgba(0,0,0,0.2)';
-    iframeContainer.style.borderRadius = '12px';
-    iframeContainer.style.overflow = 'hidden';
-  
-    // Crear el iframe con la URL del backend de NIA
-    const iframe = document.createElement('iframe');
-    iframe.src = `https://nia-frontend-lilac.vercel.app?client_id=${clientId}`; // 👈 Cambia esto a tu URL real
-    iframe.style.width = '100%';
-    iframe.style.height = '100%';
-    iframe.style.border = 'none';
-    iframe.setAttribute('allow', 'microphone'); // por si quieres voz
-  
-    // Insertar iframe dentro del contenedor
-    iframeContainer.appendChild(iframe);
-  
-    // Insertar el contenedor al final del body
-    document.body.appendChild(iframeContainer);
-  })();
-  
+// 👉 Crea el contenedor del chat
+const niaContainer = document.createElement("div");
+niaContainer.className = "nia-chat-container";
+niaContainer.innerHTML = `
+  <div class="nia-chat-header">🤖 NIA</div>
+  <div class="nia-chat-messages" id="niaMessages"></div>
+  <div class="nia-chat-input">
+    <input type="text" id="niaInput" placeholder="Escribe tu mensaje..." />
+    <button onclick="sendNiaMessage()">Enviar</button>
+  </div>
+`;
+document.body.appendChild(niaContainer);
+
+// 👉 Función para agregar mensajes
+function addMessage(message, sender) {
+  const messages = document.getElementById("niaMessages");
+  const msg = document.createElement("div");
+  msg.className = `nia-message ${sender}`;
+  msg.textContent = message;
+  messages.appendChild(msg);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+// 👉 Enviar mensaje al backend
+async function sendNiaMessage() {
+  const input = document.getElementById("niaInput");
+  const message = input.value.trim();
+  if (message === "") return;
+
+  addMessage(message, "user");
+  input.value = "";
+
+  try {
+    const response = await fetch("http://127.0.0.1:8000/nia", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ message })
+    });
+
+    const data = await response.json();
+    addMessage(data.response, "nia");
+
+    // Si tiene audio, lo reproduce
+    if (data.audio_url) {
+      const audio = new Audio(data.audio_url);
+      audio.play();
+    }
+
+  } catch (error) {
+    console.error("Connection error:", error);
+    addMessage("Hubo un error al conectar con NIA.", "nia");
+  }
+}
