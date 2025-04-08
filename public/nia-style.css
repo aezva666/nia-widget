@@ -1,81 +1,109 @@
-/* Estilos generales del contenedor */
+/* Contenedor general del chat */
 .nia-chat-container {
-    font-family: Arial, sans-serif;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 320px;
-    max-height: 500px;
-    background: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    z-index: 9999;
-  }
-  
-  /* Cabecera */
-  .nia-chat-header {
-    background: #FF9C9C;
-    color: white;
-    padding: 10px;
-    font-weight: bold;
-    text-align: center;
-  }
-  
-  /* Mensajes */
-  .nia-chat-messages {
-    padding: 10px;
-    overflow-y: auto;
-    flex-grow: 1;
-    background: #fff;
-  }
-  
-  .nia-message {
-    margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 10px;
-    max-width: 80%;
-    clear: both;
-    word-wrap: break-word;
-  }
-  
-  .nia-message.user {
-    background: #f0f0f0;
-    align-self: flex-end;
-    float: right;
-    color: #000;
-  }
-  
-  .nia-message.nia {
-    background: #FF9C9C;
-    color: #000;
-    float: left;
-    align-self: flex-start;
-  }
-  
-  /* Input */
-  .nia-chat-input {
-    display: flex;
-    border-top: 1px solid #ddd;
-  }
-  
-  .nia-chat-input input {
-    flex-grow: 1;
-    padding: 10px;
-    border: none;
-    border-radius: 0;
-    font-size: 14px;
-    outline: none;
-  }
-  
-  .nia-chat-input button {
-    background: #FF9C9C;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-    font-weight: bold;
-  }
-  
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 320px;
+  height: 480px;
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
+  z-index: 9999;
+}
+
+/* Encabezado */
+.nia-chat-header {
+  background-color: #FF9C9C;
+  color: white;
+  padding: 12px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* Área de mensajes */
+.nia-chat-messages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  background-color: #ffffff;
+}
+
+/* Mensajes */
+.nia-message {
+  padding: 8px 12px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  max-width: 80%;
+  font-size: 14px;
+  line-height: 1.4;
+  display: flex;
+  align-items: flex-start;
+  color: black;
+}
+
+/* Mensaje del usuario */
+.nia-message.user {
+  background-color: #f0f0f0;
+  align-self: flex-end;
+  border-top-right-radius: 0;
+}
+
+/* Mensaje de NIA */
+.nia-message.nia {
+  background-color: #FF9C9C;
+  align-self: flex-start;
+  border-top-left-radius: 0;
+  color: white;
+  position: relative;
+  padding-left: 40px;
+}
+
+/* Avatar de NIA */
+.nia-message.nia::before {
+  content: "";
+  background-image: url("https://aezva.com/wp-content/uploads/2025/04/nia-chat-1.webp");
+  background-size: cover;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  left: 5px;
+  top: 5px;
+}
+
+/* Entrada de texto */
+.nia-chat-input {
+  display: flex;
+  border-top: 1px solid #eee;
+  padding: 10px;
+  background-color: white;
+}
+
+.nia-chat-input input {
+  flex: 1;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+}
+
+.nia-chat-input button {
+  margin-left: 10px;
+  padding: 8px 14px;
+  background-color: #FF9C9C;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.nia-chat-input button:hover {
+  background-color: #ff7d7d;
+}
