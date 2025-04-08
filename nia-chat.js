@@ -1,7 +1,7 @@
-// 👉 Inserta el CSS desde Vercel
+// 👉 Inserta el CSS desde Vercel (ahora correcto)
 const cssLink = document.createElement("link");
 cssLink.rel = "stylesheet";
-cssLink.href = "https://nia-frontend-lilac.vercel.app/nia-style.css";
+cssLink.href = "https://nia-widget.vercel.app/nia-style.css"; // ✅ CORREGIDO
 document.head.appendChild(cssLink);
 
 // 👉 Crea el contenedor del chat
