@@ -1,88 +1,56 @@
-/* Estilos generales */
-#nia-container {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 9999;
-  font-family: Arial, sans-serif;
-}
-
-/* Burbuja de NIA (icono redondo) */
-#nia-bubble {
-  width: 60px;
-  height: 60px;
-  background: none;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  z-index: 10001;
-}
-
-#nia-bubble img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-/* Burbuja de bienvenida */
-#nia-welcome-bubble {
-  background-color: #FF9C9C;
-  color: black;
-  padding: 10px 14px;
-  border-radius: 20px;
-  max-width: 250px;
-  margin-bottom: 10px;
-  display: inline-block;
-  font-size: 14px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  cursor: pointer;
-}
-
-/* Caja del chat */
+/* Contenedor del chat */
 #nia-chat-container {
-  display: none;
-  flex-direction: column;
-  width: 320px;
-  height: 440px;
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 350px;
+  max-height: 500px;
   background-color: white;
   border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  display: none;
+  flex-direction: column;
+  font-family: sans-serif;
+  z-index: 1002;
   overflow: hidden;
 }
 
-/* Cabecera del chat */
-#nia-header {
+/* Cabecera */
+#nia-chat-header {
   background-color: white;
   color: black;
-  padding: 10px;
+  padding: 12px;
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-weight: bold;
+  justify-content: space-between;
   border-bottom: 1px solid #ccc;
 }
 
-.nia-avatar {
+#nia-chat-header img {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  object-fit: cover;
+  margin-right: 10px;
 }
 
-/* Botón minimizar */
-#nia-minimize {
-  margin-left: auto;
-  cursor: pointer;
-  font-size: 20px;
-  line-height: 20px;
-  color: black;
+#nia-chat-header .nia-name {
+  font-weight: bold;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+#nia-close-button {
   background: none;
   border: none;
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+  cursor: pointer;
 }
 
-/* Área de mensajes */
-#nia-messages {
+/* Cuerpo del chat */
+#nia-chat-messages {
   flex: 1;
   padding: 10px;
   overflow-y: auto;
@@ -90,67 +58,127 @@
   color: black;
 }
 
-/* Estilo de mensajes */
-.nia-message {
+/* Mensajes */
+.nia-message,
+.user-message {
   padding: 8px 12px;
-  margin-bottom: 8px;
-  border-radius: 20px;
+  margin: 6px 0;
+  border-radius: 18px;
   max-width: 80%;
-  line-height: 1.4;
   word-wrap: break-word;
-  white-space: pre-wrap;
+  font-size: 14px;
+  display: inline-block;
 }
 
-/* Mensaje del usuario */
-.nia-user {
-  background-color: #e6e6e6;
-  align-self: flex-end;
-  margin-left: auto;
-  color: black;
-}
-
-/* Mensaje de NIA */
-.nia-bot {
+.nia-message {
   background-color: #FF9C9C;
+  color: black;
   align-self: flex-start;
   margin-right: auto;
-  color: black;
 }
 
-/* Área de entrada */
-#nia-input-container {
+.user-message {
+  background-color: #f0f0f0;
+  color: black;
+  align-self: flex-end;
+  margin-left: auto;
+}
+
+/* Entrada de texto */
+#nia-chat-input {
   display: flex;
   border-top: 1px solid #ccc;
+  padding: 8px;
   background-color: white;
 }
 
-#nia-input-container input {
+#nia-user-input {
   flex: 1;
-  padding: 10px;
-  border: none;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 18px;
   font-size: 14px;
   outline: none;
   color: black;
-  background-color: white;
 }
 
-#nia-input-container button {
-  background-color: transparent;
+#nia-send-button {
+  background-color: white;
   border: none;
-  padding: 10px 15px;
-  cursor: pointer;
   color: #FF9C9C;
   font-weight: bold;
-  transition: color 0.2s;
+  margin-left: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 0 10px;
+  transition: color 0.2s ease;
 }
 
-#nia-input-container button:active {
+#nia-send-button:active {
   color: black;
 }
 
-/* Evitar zoom en móviles al enfocar input */
-@media (max-width: 768px) {
-  input, button {
-    font-size: 16px;
+/* Botón flotante de NIA */
+#nia-floating-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+#nia-floating-button img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Burbuja de bienvenida */
+#nia-welcome-bubble {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  max-width: 250px;
+  background-color: #FF9C9C;
+  color: black;
+  padding: 12px 16px;
+  border-radius: 18px;
+  font-size: 14px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  z-index: 1001;
+  cursor: pointer;
+  display: none;
+}
+
+/* Scroll personalizado (opcional y bonito) */
+#nia-chat-messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+#nia-chat-messages::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 3px;
+}
+
+/* Diseño responsive */
+@media (max-width: 500px) {
+  #nia-chat-container {
+    width: 90%;
+    right: 5%;
+    max-height: 70%;
+  }
+
+  #nia-welcome-bubble {
+    max-width: 80%;
+    right: 10%;
+  }
+
+  #nia-floating-button {
+    right: 10%;
   }
 }
