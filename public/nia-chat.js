@@ -1,82 +1,99 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const container = document.createElement("div");
-  container.id = "nia-widget-container";
+  const niaContainer = document.createElement("div");
+  niaContainer.id = "nia-chat-container";
+  document.body.appendChild(niaContainer);
 
-  container.innerHTML = `
-    <div id="nia-welcome-bubble">¡Hola! ¿En qué puedo ayudarte?</div>
-    <button id="nia-floating-icon"></button>
-    <div id="nia-chat-box">
-      <div id="nia-chat-header">
-        <div style="display: flex; align-items: center;">
-          <img src="https://aezva.com/wp-content/uploads/2025/04/web-200x200-1.webp" />
-          NIA Assistant
-        </div>
-        <button id="nia-minimize-button">─</button>
-      </div>
-      <div id="nia-chat-messages"></div>
-      <div id="nia-chat-input-area">
-        <input type="text" id="nia-chat-input" placeholder="Escribe un mensaje..." />
-        <button id="nia-send-button">Enviar</button>
-      </div>
+  const niaFloating = document.createElement("div");
+  niaFloating.id = "nia-floating-container";
+
+  const niaWelcome = document.createElement("div");
+  niaWelcome.id = "nia-welcome-bubble";
+  niaWelcome.innerText = "Hola 👋 ¿En qué puedo ayudarte?";
+  niaFloating.appendChild(niaWelcome);
+
+  const niaIcon = document.createElement("img");
+  niaIcon.id = "nia-icon";
+  niaIcon.src = "https://aezva.com/wp-content/uploads/2025/04/nia-chat-1.webp";
+  niaFloating.appendChild(niaIcon);
+
+  const chatBox = document.createElement("div");
+  chatBox.id = "nia-chatbox";
+  chatBox.innerHTML = `
+    <div id="nia-header">
+      <img src="https://aezva.com/wp-content/uploads/2025/04/nia-chat-1.webp" />
+      <span>NIA Assistant</span>
+      <div id="nia-minimize-btn"></div>
+    </div>
+    <div id="nia-messages"></div>
+    <div id="nia-input-container">
+      <input type="text" id="nia-input" placeholder="Escribe tu mensaje..." />
+      <button id="nia-send-btn">Enviar</button>
     </div>
   `;
 
-  document.body.appendChild(container);
+  niaContainer.appendChild(niaFloating);
+  niaContainer.appendChild(chatBox);
 
-  const floatingIcon = document.getElementById("nia-floating-icon");
-  const chatBox = document.getElementById("nia-chat-box");
-  const sendButton = document.getElementById("nia-send-button");
-  const input = document.getElementById("nia-chat-input");
-  const messages = document.getElementById("nia-chat-messages");
-  const minimizeBtn = document.getElementById("nia-minimize-button");
-  const welcomeBubble = document.getElementById("nia-welcome-bubble");
+  const niaInput = chatBox.querySelector("#nia-input");
+  const niaSendBtn = chatBox.querySelector("#nia-send-btn");
+  const niaMessages = chatBox.querySelector("#nia-messages");
+  const niaMinimizeBtn = chatBox.querySelector("#nia-minimize-btn");
 
-  let hasInteracted = false;
-  let welcomeSent = false;
+  let chatOpened = false;
+  let welcomeMessageShown = false;
 
-  function addMessage(text, from) {
-    const div = document.createElement("div");
-    div.className = from === "nia" ? "nia-message" : "user-message";
-    div.innerText = text;
-    messages.appendChild(div);
-    messages.scrollTop = messages.scrollHeight;
+  function addMessage(message, sender) {
+    const msg = document.createElement("div");
+    msg.className = sender === "user" ? "user-message" : "nia-message";
+    msg.innerText = message;
+    niaMessages.appendChild(msg);
+    niaMessages.scrollTop = niaMessages.scrollHeight;
   }
 
   function openChat() {
     chatBox.style.display = "flex";
-    welcomeBubble.style.display = "none";
-    if (!welcomeSent) {
-      addMessage("¡Hola! ¿En qué puedo ayudarte?", "nia");
-      welcomeSent = true;
+    niaWelcome.style.display = "none";
+    chatOpened = true;
+
+    if (!welcomeMessageShown) {
+      addMessage("Hola 👋 ¿En qué puedo ayudarte?", "nia");
+      welcomeMessageShown = true;
     }
   }
 
-  function minimizeChat() {
+  function closeChat() {
     chatBox.style.display = "none";
-    if (!hasInteracted) {
-      welcomeBubble.style.display = "block";
+
+    if (!niaInput.value.trim()) {
+      niaWelcome.style.display = "inline-block";
     }
   }
 
-  function sendMessage() {
-    const text = input.value.trim();
-    if (text !== "") {
-      addMessage(text, "user");
-      input.value = "";
-      hasInteracted = true;
+  niaIcon.addEventListener("click", () => {
+    if (!chatOpened || chatBox.style.display === "none") {
+      openChat();
     }
-  }
-
-  floatingIcon.addEventListener("click", openChat);
-  welcomeBubble.addEventListener("click", openChat);
-  minimizeBtn.addEventListener("click", minimizeChat);
-  sendButton.addEventListener("click", sendMessage);
-  input.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") sendMessage();
   });
 
-  // Mostrar burbuja de bienvenida si no hay interacción previa
-  if (!hasInteracted) {
-    welcomeBubble.style.display = "block";
-  }
+  niaWelcome.addEventListener("click", openChat);
+
+  niaMinimizeBtn.addEventListener("click", closeChat);
+
+  niaSendBtn.addEventListener("click", () => {
+    const userInput = niaInput.value.trim();
+    if (userInput) {
+      addMessage(userInput, "user");
+      niaInput.value = "";
+      // Simulación de respuesta de NIA
+      setTimeout(() => {
+        addMessage("Gracias por tu mensaje. Pronto te responderé.", "nia");
+      }, 600);
+    }
+  });
+
+  niaInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      niaSendBtn.click();
+    }
+  });
 });
