@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
   container.innerHTML = `
     <div id="nia-welcome-bubble">¡Hola! ¿En qué puedo ayudarte?</div>
     <button id="nia-floating-icon"></button>
+    <div id="nia-notification-badge">1</div>
     <div id="nia-chat-box">
       <div id="nia-chat-header">
         <div style="display: flex; align-items: center;">
@@ -30,9 +31,14 @@ document.addEventListener("DOMContentLoaded", function () {
   const messages = document.getElementById("nia-chat-messages");
   const minimizeBtn = document.getElementById("nia-minimize-button");
   const welcomeBubble = document.getElementById("nia-welcome-bubble");
+  const notificationBadge = document.getElementById("nia-notification-badge");
 
   let hasInteracted = false;
   let welcomeSent = false;
+
+  function isMobile() {
+    return window.innerWidth <= 768;
+  }
 
   function addMessage(text, from) {
     const div = document.createElement("div");
@@ -45,6 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function openChat() {
     chatBox.style.display = "flex";
     welcomeBubble.style.display = "none";
+    notificationBadge.style.display = "none";
     if (!welcomeSent) {
       addMessage("¡Hola! ¿En qué puedo ayudarte?", "nia");
       welcomeSent = true;
@@ -54,7 +61,11 @@ document.addEventListener("DOMContentLoaded", function () {
   function minimizeChat() {
     chatBox.style.display = "none";
     if (!hasInteracted) {
-      welcomeBubble.style.display = "block";
+      if (!isMobile()) {
+        welcomeBubble.style.display = "block";
+      } else {
+        notificationBadge.style.display = "block";
+      }
     }
   }
 
@@ -64,6 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
       addMessage(text, "user");
       input.value = "";
       hasInteracted = true;
+      notificationBadge.style.display = "none";
     }
   }
 
@@ -75,8 +87,27 @@ document.addEventListener("DOMContentLoaded", function () {
     if (e.key === "Enter") sendMessage();
   });
 
-  // Mostrar burbuja de bienvenida si no hay interacción previa
+  // Mostrar burbuja o badge según dispositivo
   if (!hasInteracted) {
-    welcomeBubble.style.display = "block";
+    if (!isMobile()) {
+      welcomeBubble.style.display = "block";
+    } else {
+      notificationBadge.style.cssText = `
+        position: fixed;
+        bottom: 70px;
+        right: 18px;
+        background-color: red;
+        color: white;
+        border-radius: 50%;
+        width: 18px;
+        height: 18px;
+        font-size: 12px;
+        text-align: center;
+        line-height: 18px;
+        z-index: 10003;
+        display: block;
+        font-weight: bold;
+      `;
+    }
   }
 });
