@@ -33,12 +33,13 @@
   display: inline-block;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
   position: fixed;
-  bottom: 60px; /* Ahora sí, solo 10px más arriba del ícono */
-  right: 60px;  /* Solo 10px más a la izquierda del ícono */
+  bottom: 70px; /* 60 + 10 */
+  right: 70px;  /* 60 + 10 */
   cursor: pointer;
   display: none;
   z-index: 10000;
 }
+
 
 
 
