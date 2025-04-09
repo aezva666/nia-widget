@@ -1,133 +1,114 @@
+/* Contenedor flotante de NIA */
 #nia-container {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  width: 350px;
-  max-height: 500px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
-  overflow: hidden;
-  font-family: Arial, sans-serif;
-  background-color: white;
-  display: flex;
-  flex-direction: column;
   z-index: 9999;
+  font-family: Arial, sans-serif;
 }
 
-#nia-header {
+/* Botón minimizado con imagen de NIA */
+#nia-bubble-button {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
   background-color: white;
-  color: black;
-  padding: 10px;
+  border: 2px solid #FF9C9C;
+  background-image: url("https://aezva.com/wp-content/uploads/2025/04/nia-chat-1.webp");
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Ventana del chat */
+#nia-chat-box {
+  display: none;
+  flex-direction: column;
+  width: 360px;
+  max-height: 500px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+/* Cabecera del chat */
+#nia-header {
   display: flex;
   align-items: center;
-  gap: 10px;
-  border-bottom: 1px solid #eee;
+  padding: 10px;
+  background-color: white;
+  border-bottom: 1px solid #ddd;
 }
 
 #nia-header img {
-  height: 30px;
   width: 30px;
+  height: 30px;
   border-radius: 50%;
+  margin-right: 10px;
 }
 
 #nia-header span {
   font-weight: bold;
   font-size: 16px;
-  flex-grow: 1;
+  color: black;
 }
 
-#nia-minimize-button {
-  background: none;
-  border: none;
-  font-size: 18px;
-  color: #aaa;
-  cursor: pointer;
-}
-
+/* Área de mensajes */
 #nia-messages {
-  flex-grow: 1;
+  flex: 1;
   padding: 10px;
   overflow-y: auto;
 }
 
-.user-message, .nia-message {
-  margin: 8px 0;
-  display: flex;
-  align-items: flex-start;
-}
-
-.user-message span {
-  background: #eee;
-  color: black;
+/* Estilo de los mensajes */
+.nia-message,
+.user-message {
+  max-width: 75%;
   padding: 8px 12px;
-  border-radius: 15px;
-  max-width: 80%;
-  margin-left: auto;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  clear: both;
 }
 
 .nia-message {
-  flex-direction: row;
-}
-
-.nia-message img.nia-avatar {
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  margin-right: 6px;
-}
-
-.nia-message span {
-  background: #FF9C9C;
+  background-color: #FF9C9C;
   color: black;
-  padding: 8px 12px;
-  border-radius: 15px;
-  max-width: 80%;
+  align-self: flex-start;
 }
 
-#nia-input-container {
+.user-message {
+  background-color: #f0f0f0;
+  color: black;
+  align-self: flex-end;
+  margin-left: auto;
+}
+
+/* Input y botón */
+#nia-input-area {
   display: flex;
-  border-top: 1px solid #eee;
+  border-top: 1px solid #ddd;
 }
 
 #nia-input {
-  flex-grow: 1;
-  border: none;
+  flex: 1;
   padding: 10px;
-  font-size: 14px;
+  border: none;
   outline: none;
+  font-size: 14px;
 }
 
-#nia-send-button {
-  background: white;
+#nia-send {
+  background-color: white;
   color: black;
   border: none;
-  padding: 10px 15px;
+  padding: 10px 16px;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background-color 0.3s;
 }
 
-#nia-send-button:hover {
+#nia-send:hover {
   background-color: #FF9C9C;
-}
-
-#nia-bubble {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 60px;
-  height: 60px;
-  background: white;
-  border-radius: 50%;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  z-index: 9999;
-}
-
-#nia-bubble img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
 }
