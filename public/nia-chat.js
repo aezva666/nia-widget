@@ -1,20 +1,18 @@
 // 👉 Inserta el CSS desde Vercel
 const cssLink = document.createElement("link");
 cssLink.rel = "stylesheet";
-cssLink.href = "https://nia-frontend-lilac.vercel.app/nia-style.css";
+cssLink.href = "https://nia-widget.vercel.app/nia-style.css";
 document.head.appendChild(cssLink);
 
 // 👉 Crea el contenedor del chat
 const niaContainer = document.createElement("div");
 niaContainer.className = "nia-chat-container";
 niaContainer.innerHTML = `
-  <div class="nia-chat-header">
-    <span class="nia-title">NIA Assistant</span>
-  </div>
+  <div class="nia-chat-header">NIA Assistant</div>
   <div class="nia-chat-messages" id="niaMessages"></div>
   <div class="nia-chat-input">
     <input type="text" id="niaInput" placeholder="Escribe tu mensaje..." />
-    <button id="niaSendButton">Enviar</button>
+    <button id="niaSendBtn">Enviar</button>
   </div>
 `;
 document.body.appendChild(niaContainer);
@@ -50,19 +48,18 @@ async function sendNiaMessage() {
     const data = await response.json();
     addMessage(data.response, "nia");
 
-    if (data.audio_url) {
-      const audio = new Audio(data.audio_url);
-      audio.play();
-    }
-
   } catch (error) {
     console.error("Connection error:", error);
     addMessage("Hubo un error al conectar con NIA.", "nia");
   }
 }
 
-// 👉 Listeners
-document.getElementById("niaSendButton").addEventListener("click", sendNiaMessage);
+// 👉 Evento para botón
+document.getElementById("niaSendBtn").addEventListener("click", sendNiaMessage);
+
+// 👉 Evento para presionar Enter
 document.getElementById("niaInput").addEventListener("keypress", function (e) {
-  if (e.key === "Enter") sendNiaMessage();
+  if (e.key === "Enter") {
+    sendNiaMessage();
+  }
 });
