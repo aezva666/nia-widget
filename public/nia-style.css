@@ -1,5 +1,5 @@
-/* Contenedor principal del widget */
-#nia-chat-container {
+/* Estilos principales del widget */
+#nia-widget-container {
   position: fixed;
   bottom: 20px;
   right: 20px;
@@ -7,142 +7,134 @@
   font-family: Arial, sans-serif;
 }
 
-/* Burbuja flotante de NIA */
-#nia-icon {
+#nia-floating-icon {
   width: 60px;
   height: 60px;
   border-radius: 50%;
+  background-image: url('https://aezva.com/wp-content/uploads/2025/04/web-200x200-1.webp');
+  background-size: cover;
+  background-position: center;
+  border: none;
   cursor: pointer;
-  transition: transform 0.3s;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Burbuja de bienvenida */
 #nia-welcome-bubble {
   background-color: #FF9C9C;
   color: black;
-  padding: 10px 16px;
+  padding: 10px 14px;
   border-radius: 20px;
   margin-right: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  max-width: 220px;
-  font-size: 14px;
-  line-height: 1.4;
-  display: inline-block;
-  white-space: normal;
+  max-width: 250px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  bottom: 70px;
+  right: 80px;
+  cursor: pointer;
+  display: none;
 }
 
-/* Contenedor burbujas flotantes */
-#nia-floating-container {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 10px;
-}
-
-/* Ventana de chat */
-#nia-chatbox {
-  width: 300px;
-  height: 400px;
+/* Contenedor de chat */
+#nia-chat-box {
+  width: 340px;
+  height: 460px;
   background-color: white;
-  border: 1px solid #ccc;
+  color: black;
   border-radius: 10px;
   display: none;
   flex-direction: column;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   overflow: hidden;
-  position: relative;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  bottom: 80px;
+  right: 0;
 }
 
-/* Cabecera del chat */
-#nia-header {
+/* Encabezado */
+#nia-chat-header {
   background-color: white;
   color: black;
-  padding: 10px;
+  padding: 12px;
+  font-weight: bold;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid #ddd;
+  justify-content: space-between;
 }
 
-#nia-header img {
-  width: 32px;
-  height: 32px;
+#nia-chat-header img {
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  margin-right: 8px;
+  margin-right: 10px;
 }
 
-#nia-header span {
-  font-weight: bold;
-}
-
-/* Área de mensajes */
-#nia-messages {
+#nia-chat-messages {
   flex: 1;
   padding: 10px;
   overflow-y: auto;
-  background-color: white;
-  color: black;
 }
 
-/* Mensajes */
 .nia-message,
 .user-message {
-  margin: 5px 0;
-  padding: 8px 12px;
-  border-radius: 16px;
   max-width: 80%;
-  word-wrap: break-word;
-  display: inline-block;
+  margin: 8px 0;
+  padding: 10px 14px;
+  border-radius: 20px;
   clear: both;
+  display: inline-block;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .nia-message {
   background-color: #FF9C9C;
   color: black;
-  align-self: flex-start;
+  float: left;
 }
 
 .user-message {
-  background-color: #f1f1f1;
+  background-color: #e5e5e5;
   color: black;
-  align-self: flex-end;
+  float: right;
 }
 
-/* Área de entrada */
-#nia-input-container {
+#nia-chat-input-area {
   display: flex;
+  padding: 10px;
   border-top: 1px solid #ddd;
+  background-color: white;
 }
 
-#nia-input {
+#nia-chat-input {
   flex: 1;
   padding: 10px;
-  border: none;
+  border: 1px solid #ddd;
+  border-radius: 20px;
   outline: none;
-  font-size: 14px;
 }
 
-#nia-send-btn {
+#nia-send-button {
+  margin-left: 10px;
+  padding: 0 16px;
   background-color: transparent;
-  color: black;
-  padding: 10px 15px;
+  color: #FF9C9C;
   border: none;
-  cursor: pointer;
   font-weight: bold;
+  cursor: pointer;
+  border-radius: 20px;
+  transition: color 0.3s;
 }
 
-#nia-send-btn:hover {
-  background-color: #ffe5e5;
+#nia-send-button:active {
+  color: black;
 }
 
 /* Botón minimizar */
-#nia-minimize-btn {
-  position: absolute;
-  top: 6px;
-  right: 8px;
-  width: 16px;
-  height: 2px;
-  background-color: black;
+#nia-minimize-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  line-height: 1;
+  color: black;
   cursor: pointer;
-  border-radius: 1px;
 }
