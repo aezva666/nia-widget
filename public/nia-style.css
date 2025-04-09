@@ -32,13 +32,27 @@
   margin-right: 10px;
   max-width: 250px;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
-  position: fixed; /* ✅ Cambiado de absolute a fixed */
-  bottom: 70px; /* ✅ Subida para estar sobre el ícono */
-  right: 70px;   /* ✅ Ajustada a la izquierda del ícono */
+  position: fixed;
+  bottom: 90px; /* 70px encima del ícono (que está a 20px del borde) */
+  right: 90px;  /* 70px a la izquierda del ícono (que está a right: 20px) */
   cursor: pointer;
   display: none;
-  z-index: 10000; /* ✅ Para estar detrás del chat, pero encima del fondo */
+  z-index: 10000;
 }
+
+/* Cola estilo "bocadillo" */
+#nia-welcome-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  right: 8px;
+  width: 12px;
+  height: 12px;
+  background-color: #FF9C9C;
+  border-radius: 50%;
+  box-shadow: -6px 6px #FF9C9C;
+}
+
 
 /* Contenedor de chat */
 #nia-chat-box {
