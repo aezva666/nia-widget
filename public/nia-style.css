@@ -32,13 +32,14 @@
   max-width: 250px;
   display: inline-block;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
-  position: absolute; /* vuelve al contexto relativo del widget */
-  bottom: 70px; /* 60 (icono) + 10 */
-  right: 70px;  /* 60 (icono) + 10 */
+  position: fixed; /* ✅ Igual que el ícono */
+  bottom: 90px;    /* ✅ 60px (altura del ícono) + 10px + 20px separación */
+  right: 90px;     /* ✅ 60px (ancho del ícono) + 10px + 20px separación */
   cursor: pointer;
   display: none;
   z-index: 10000;
 }
+
 
 
 /* Contenedor de chat */
