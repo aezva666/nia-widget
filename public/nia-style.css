@@ -1,112 +1,151 @@
-/* CONTENEDOR FLOTANTE */
-#nia-container {
+/* Contenedor general del widget */
+.nia-container {
   position: fixed;
   bottom: 20px;
   right: 20px;
   z-index: 9999;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Botón minimizado con imagen */
+.nia-minimized {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.nia-minimized img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease;
+}
+
+.nia-minimized img:hover {
+  transform: scale(1.05);
+}
+
+/* Mensaje flotante de bienvenida */
+.nia-welcome-bubble {
+  background-color: #FF9C9C;
+  color: #000;
+  padding: 10px 14px;
+  border-radius: 18px;
+  font-size: 14px;
+  max-width: 220px;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  animation: pop-in 0.4s ease;
+  cursor: pointer;
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+}
+
+/* Caja de chat principal */
+.nia-chatbox {
+  width: 320px;
+  height: 400px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  font-family: Arial, sans-serif;
-}
-
-/* BOTÓN FLOTANTE (burbuja con imagen de NIA) */
-#nia-bubble-button {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  background-image: url("https://aezva.com/wp-content/uploads/2025/04/nia-chat-1.webp");
-  background-size: cover;
-  background-position: center;
-  border: 2px solid #FF9C9C;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-/* CAJA DEL CHAT */
-#nia-chat-box {
-  display: none;
-  flex-direction: column;
-  width: 360px;
-  height: 480px;
-  background-color: white;
-  border-radius: 15px;
-  margin-bottom: 10px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   overflow: hidden;
 }
 
-/* CABECERA DEL CHAT */
-#nia-header {
+/* Header con imagen de NIA */
+.nia-header {
+  background-color: #FF9C9C;
+  color: #000;
   display: flex;
   align-items: center;
   padding: 10px;
-  background-color: #ffffff;
-  border-bottom: 1px solid #ddd;
+  gap: 10px;
 }
 
-#nia-header img {
-  width: 30px;
-  height: 30px;
+.nia-header img {
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  margin-right: 10px;
 }
 
-#nia-header span {
-  font-weight: bold;
-  color: black;
-}
-
-/* MENSAJES */
-#nia-messages {
+/* Contenedor de mensajes */
+.nia-messages {
   flex: 1;
   padding: 10px;
   overflow-y: auto;
+  background: #fefefe;
 }
 
-/* BURBUJAS DE MENSAJES */
 .nia-message {
-  background-color: #FF9C9C;
-  color: black;
   padding: 8px 12px;
-  border-radius: 15px;
+  border-radius: 18px;
   margin-bottom: 10px;
   max-width: 80%;
-  align-self: flex-start;
-}
-
-.user-message {
-  background-color: #f0f0f0;
-  color: black;
-  padding: 8px 12px;
-  border-radius: 15px;
-  margin-bottom: 10px;
-  max-width: 80%;
-  align-self: flex-end;
-  margin-left: auto;
-}
-
-/* INPUT Y BOTÓN DE ENVÍO */
-#nia-input-area {
-  display: flex;
-  border-top: 1px solid #ddd;
-}
-
-#nia-input {
-  flex: 1;
-  padding: 10px;
-  border: none;
-  outline: none;
+  word-wrap: break-word;
   font-size: 14px;
 }
 
-#nia-send {
-  background-color: white;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
+.nia-message.user {
+  background-color: #e6e6e6;
+  align-self: flex-end;
 }
 
-#nia-send:hover {
+.nia-message.bot {
   background-color: #FF9C9C;
+  align-self: flex-start;
+  color: #000;
+}
+
+/* Input y botón */
+.nia-input-container {
+  display: flex;
+  padding: 8px;
+  border-top: 1px solid #ccc;
+  background: #fff;
+}
+
+.nia-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 8px;
+  font-size: 14px;
+}
+
+.nia-send-button {
+  background-color: #fff;
+  border: 2px solid #FF9C9C;
+  color: #FF9C9C;
+  padding: 6px 12px;
+  margin-left: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.nia-send-button:active {
+  background-color: #FF9C9C;
+  color: #000;
+}
+
+/* Animación de aparición */
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Prevenir zoom en móviles */
+input,
+textarea {
+  font-size: 16px;
 }
