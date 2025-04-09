@@ -1,76 +1,95 @@
+// Crear contenedor principal
 const niaContainer = document.createElement("div");
-niaContainer.id = "nia-container";
+niaContainer.className = "nia-container";
 
-const niaChatBox = document.createElement("div");
-niaChatBox.id = "nia-chat-box";
-niaChatBox.innerHTML = `
-  <div id="nia-header">
-    <img src="https://aezva.com/wp-content/uploads/2025/04/nia-chat-1.webp" alt="NIA">
+// Botón minimizado con imagen de NIA
+const minimizedButton = document.createElement("button");
+minimizedButton.className = "nia-minimized";
+minimizedButton.innerHTML = `
+  <img src="https://aezva.com/wp-content/uploads/2025/04/web-200x200-1.webp" alt="NIA" />
+`;
+
+// Mensaje flotante de bienvenida
+const welcomeBubble = document.createElement("div");
+welcomeBubble.className = "nia-welcome-bubble";
+welcomeBubble.innerText = "¡Hola! ¿Necesitas ayuda?";
+
+// Evento: abrir chat al hacer clic en imagen o mensaje
+function openChat() {
+  minimizedButton.style.display = "none";
+  welcomeBubble.style.display = "none";
+  chatbox.style.display = "flex";
+}
+minimizedButton.onclick = openChat;
+welcomeBubble.onclick = openChat;
+
+// Caja de chat
+const chatbox = document.createElement("div");
+chatbox.className = "nia-chatbox";
+chatbox.style.display = "none";
+
+// Header con avatar y nombre
+chatbox.innerHTML = `
+  <div class="nia-header">
+    <img src="https://aezva.com/wp-content/uploads/2025/04/web-200x200-1.webp" alt="NIA Avatar" />
     <span>NIA Assistant</span>
   </div>
-  <div id="nia-messages"></div>
-  <div id="nia-input-area">
-    <input type="text" id="nia-input" placeholder="Escribe un mensaje..." />
-    <button id="nia-send">Enviar</button>
+  <div class="nia-messages" id="nia-messages"></div>
+  <div class="nia-input-container">
+    <input type="text" id="nia-input" class="nia-input" placeholder="Escribe un mensaje..." />
+    <button class="nia-send-button" id="nia-send-button">Enviar</button>
   </div>
 `;
 
-const niaBubbleButton = document.createElement("div");
-niaBubbleButton.id = "nia-bubble-button";
+// Agregar elementos al contenedor principal
+niaContainer.appendChild(minimizedButton);
+niaContainer.appendChild(welcomeBubble);
+niaContainer.appendChild(chatbox);
 
-niaContainer.appendChild(niaChatBox);
-niaContainer.appendChild(niaBubbleButton);
+// Agregar al body
 document.body.appendChild(niaContainer);
 
-// Estado del chat
-let isChatOpen = false;
+// Funcionalidad de mensajes
+const messagesContainer = chatbox.querySelector("#nia-messages");
+const inputField = chatbox.querySelector("#nia-input");
+const sendButton = chatbox.querySelector("#nia-send-button");
 
-niaBubbleButton.addEventListener("click", () => {
-  isChatOpen = !isChatOpen;
-  niaChatBox.style.display = isChatOpen ? "flex" : "none";
+// Mostrar mensaje inicial
+function showWelcomeMessage() {
+  const welcome = document.createElement("div");
+  welcome.className = "nia-message bot";
+  welcome.innerText = "¡Hola! Soy NIA, ¿en qué puedo ayudarte hoy?";
+  messagesContainer.appendChild(welcome);
+  messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
 
-  if (isChatOpen && !niaChatBox.dataset.welcomeShown) {
-    const welcome = document.createElement("div");
-    welcome.className = "nia-message";
-    welcome.innerText = "¡Hola! Soy NIA, tu asistente. ¿En qué puedo ayudarte hoy?";
-    document.getElementById("nia-messages").appendChild(welcome);
-    niaChatBox.dataset.welcomeShown = "true";
+// Mostrar mensaje del usuario o de NIA
+function appendMessage(text, sender) {
+  const message = document.createElement("div");
+  message.className = `nia-message ${sender}`;
+  message.innerText = text;
+  messagesContainer.appendChild(message);
+  messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+
+// Enviar mensaje
+function sendMessage() {
+  const text = inputField.value.trim();
+  if (text !== "") {
+    appendMessage(text, "user");
+    inputField.value = "";
+    // Aquí iría la integración con GPT o lógica de respuesta real
+    setTimeout(() => {
+      appendMessage("Estoy procesando tu mensaje...", "bot");
+    }, 500);
   }
+}
+
+// Eventos
+sendButton.addEventListener("click", sendMessage);
+inputField.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") sendMessage();
 });
 
-// Lógica de envío
-document.addEventListener("DOMContentLoaded", () => {
-  const input = document.getElementById("nia-input");
-  const send = document.getElementById("nia-send");
-  const messages = document.getElementById("nia-messages");
-
-  function sendMessage() {
-    const text = input.value.trim();
-    if (!text) return;
-
-    const userMsg = document.createElement("div");
-    userMsg.className = "user-message";
-    userMsg.innerText = text;
-    messages.appendChild(userMsg);
-    input.value = "";
-
-    fetch("https://nia-backend.vercel.app/nia", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: text }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        const niaMsg = document.createElement("div");
-        niaMsg.className = "nia-message";
-        niaMsg.innerText = data.response;
-        messages.appendChild(niaMsg);
-        messages.scrollTop = messages.scrollHeight;
-      });
-  }
-
-  send.addEventListener("click", sendMessage);
-  input.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") sendMessage();
-  });
-});
+// Mostrar bienvenida dentro del chat
+showWelcomeMessage();
