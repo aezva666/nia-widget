@@ -1,140 +1,140 @@
-/* Estilos principales del widget */
-#nia-widget-container {
+/* Burbujas flotantes */
+#nia-bubble-container {
   position: fixed;
   bottom: 20px;
   right: 20px;
   z-index: 9999;
-  font-family: Arial, sans-serif;
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
 }
 
-#nia-floating-icon {
+#nia-bubble {
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background-image: url('https://aezva.com/wp-content/uploads/2025/04/web-200x200-1.webp');
+  background-image: url("https://aezva.com/wp-content/uploads/2025/04/web-200x200-1.webp");
   background-size: cover;
   background-position: center;
-  border: none;
   cursor: pointer;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* Burbuja de bienvenida */
+/* ✅ Corregido: Burbuja de bienvenida más natural y horizontal */
 #nia-welcome-bubble {
   background-color: #FF9C9C;
-  color: black;
+  color: #000;
+  border-radius: 18px;
   padding: 10px 14px;
-  border-radius: 20px;
-  margin-right: 10px;
   max-width: 250px;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
-  position: absolute;
-  bottom: 70px;
-  right: 80px;
+  font-size: 14px;
+  line-height: 1.4;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
   cursor: pointer;
-  display: none;
+  white-space: normal;
+  word-break: break-word;
 }
 
-/* Contenedor de chat */
-#nia-chat-box {
-  width: 340px;
-  height: 460px;
-  background-color: white;
-  color: black;
+/* Posicionamiento del contenedor del chat */
+#nia-chat-container {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 320px;
+  max-height: 500px;
+  background-color: #fff;
   border-radius: 10px;
   display: none;
   flex-direction: column;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  z-index: 9999;
   overflow: hidden;
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
-  position: absolute;
-  bottom: 80px;
-  right: 0;
 }
 
-/* Encabezado */
-#nia-chat-header {
-  background-color: white;
-  color: black;
-  padding: 12px;
-  font-weight: bold;
+/* Resto de estilos para el chat (sin cambios importantes) */
+#nia-header {
+  background-color: #fff;
+  padding: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  font-weight: bold;
+  border-bottom: 1px solid #eee;
 }
 
-#nia-chat-header img {
-  width: 30px;
-  height: 30px;
+#nia-header img {
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
-  margin-right: 10px;
+  margin-right: 8px;
 }
 
-#nia-chat-messages {
-  flex: 1;
+#nia-close-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #000;
+}
+
+#nia-messages {
+  flex-grow: 1;
   padding: 10px;
   overflow-y: auto;
+  background-color: #fff;
 }
 
-.nia-message,
-.user-message {
-  max-width: 80%;
-  margin: 8px 0;
+.message {
+  margin: 10px 0;
   padding: 10px 14px;
-  border-radius: 20px;
-  clear: both;
-  display: inline-block;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 18px;
+  max-width: 80%;
+  line-height: 1.4;
+  word-wrap: break-word;
 }
 
-.nia-message {
+.user {
+  background-color: #eee;
+  color: #000;
+  align-self: flex-end;
+}
+
+.nia {
   background-color: #FF9C9C;
-  color: black;
-  float: left;
-}
-
-.user-message {
-  background-color: #e5e5e5;
-  color: black;
-  float: right;
-}
-
-#nia-chat-input-area {
+  color: #000;
+  align-self: flex-start;
   display: flex;
-  padding: 10px;
-  border-top: 1px solid #ddd;
-  background-color: white;
+  align-items: center;
 }
 
-#nia-chat-input {
+.nia img {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+#nia-input-area {
+  display: flex;
+  border-top: 1px solid #eee;
+}
+
+#nia-input {
   flex: 1;
   padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 20px;
-  outline: none;
+  border: none;
+  font-size: 14px;
 }
 
-#nia-send-button {
-  margin-left: 10px;
-  padding: 0 16px;
+#nia-send-btn {
+  padding: 10px 14px;
   background-color: transparent;
   color: #FF9C9C;
   border: none;
+  cursor: pointer;
   font-weight: bold;
-  cursor: pointer;
-  border-radius: 20px;
-  transition: color 0.3s;
 }
 
-#nia-send-button:active {
-  color: black;
-}
-
-/* Botón minimizar */
-#nia-minimize-button {
-  background: none;
-  border: none;
-  font-size: 24px;
-  line-height: 1;
-  color: black;
-  cursor: pointer;
+#nia-send-btn:active {
+  color: #000;
 }
