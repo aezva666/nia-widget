@@ -1,184 +1,134 @@
-/* Contenedor del chat */
-#nia-chat-container {
+/* Estilos generales del widget */
+#nia-container {
   position: fixed;
-  bottom: 90px;
+  bottom: 20px;
   right: 20px;
-  width: 350px;
+  z-index: 9999;
+  font-family: Arial, sans-serif;
+}
+
+#nia-chatbox {
+  width: 320px;
   max-height: 500px;
-  background-color: white;
+  background-color: #ffffff;
   border-radius: 10px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   display: none;
   flex-direction: column;
-  font-family: sans-serif;
-  z-index: 1002;
   overflow: hidden;
 }
 
-/* Cabecera */
-#nia-chat-header {
-  background-color: white;
-  color: black;
-  padding: 12px;
+#nia-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid #ccc;
+  background-color: #fff;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
 }
 
-#nia-chat-header img {
-  width: 30px;
-  height: 30px;
+#nia-header img {
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   margin-right: 10px;
 }
 
-#nia-chat-header .nia-name {
-  font-weight: bold;
+#nia-header h2 {
+  margin: 0;
   font-size: 16px;
-  display: flex;
-  align-items: center;
+  color: #000;
 }
 
-#nia-close-button {
-  background: none;
-  border: none;
-  font-size: 20px;
-  font-weight: bold;
-  color: black;
-  cursor: pointer;
-}
-
-/* Cuerpo del chat */
-#nia-chat-messages {
+#nia-messages {
   flex: 1;
   padding: 10px;
   overflow-y: auto;
-  background-color: white;
-  color: black;
+  background-color: #fff;
 }
 
-/* Mensajes */
 .nia-message,
 .user-message {
-  padding: 8px 12px;
-  margin: 6px 0;
-  border-radius: 18px;
   max-width: 80%;
+  padding: 10px 14px;
+  border-radius: 16px;
+  margin-bottom: 10px;
+  clear: both;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
   word-wrap: break-word;
-  font-size: 14px;
-  display: inline-block;
+  white-space: pre-line;
 }
 
 .nia-message {
   background-color: #FF9C9C;
-  color: black;
+  color: #000;
   align-self: flex-start;
-  margin-right: auto;
+  border-top-left-radius: 4px;
 }
 
 .user-message {
-  background-color: #f0f0f0;
-  color: black;
+  background-color: #f1f1f1;
+  color: #000;
   align-self: flex-end;
-  margin-left: auto;
+  border-top-right-radius: 4px;
 }
 
-/* Entrada de texto */
-#nia-chat-input {
+#nia-input-area {
   display: flex;
-  border-top: 1px solid #ccc;
-  padding: 8px;
-  background-color: white;
+  padding: 10px;
+  border-top: 1px solid #eee;
 }
 
-#nia-user-input {
+#nia-input {
   flex: 1;
-  padding: 8px;
+  padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 18px;
-  font-size: 14px;
+  border-radius: 20px;
   outline: none;
-  color: black;
+  color: #000;
 }
 
-#nia-send-button {
-  background-color: white;
+#nia-send {
+  background-color: #fff;
   border: none;
   color: #FF9C9C;
   font-weight: bold;
-  margin-left: 8px;
+  margin-left: 10px;
   cursor: pointer;
-  font-size: 16px;
-  padding: 0 10px;
-  transition: color 0.2s ease;
 }
 
-#nia-send-button:active {
-  color: black;
+#nia-send:active {
+  color: #000;
 }
 
-/* Botón flotante de NIA */
-#nia-floating-button {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 60px;
-  height: 60px;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  z-index: 1000;
-}
-
-#nia-floating-button img {
-  width: 100%;
-  height: 100%;
+#nia-toggle {
+  width: 64px;
+  height: 64px;
+  background: url("https://aezva.com/wp-content/uploads/2025/04/web-200x200-1.webp") no-repeat center center;
+  background-size: cover;
   border-radius: 50%;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-}
-
-/* Burbuja de bienvenida */
-#nia-welcome-bubble {
-  position: fixed;
-  bottom: 90px;
-  right: 20px;
-  max-width: 250px;
-  background-color: #FF9C9C;
-  color: black;
-  padding: 12px 16px;
-  border-radius: 18px;
-  font-size: 14px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-  z-index: 1001;
+  border: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   cursor: pointer;
+  z-index: 9999;
+}
+
+#nia-welcome-bubble {
+  background-color: #FF9C9C;
+  color: #000;
+  padding: 10px 14px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.1);
   display: none;
+  max-width: 250px;
 }
 
-/* Scroll personalizado (opcional y bonito) */
-#nia-chat-messages::-webkit-scrollbar {
-  width: 6px;
-}
-
-#nia-chat-messages::-webkit-scrollbar-thumb {
-  background-color: #ccc;
-  border-radius: 3px;
-}
-
-/* Diseño responsive */
-@media (max-width: 500px) {
-  #nia-chat-container {
-    width: 90%;
-    right: 5%;
-    max-height: 70%;
-  }
-
-  #nia-welcome-bubble {
-    max-width: 80%;
-    right: 10%;
-  }
-
-  #nia-floating-button {
-    right: 10%;
-  }
+#nia-minimize {
+  border: none;
+  background: none;
+  color: #000;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: auto;
 }
