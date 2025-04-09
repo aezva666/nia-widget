@@ -15,8 +15,8 @@
 }
 
 .nia-minimized img {
-  width: 60px;
-  height: 60px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   transition: transform 0.2s ease;
@@ -26,7 +26,7 @@
   transform: scale(1.05);
 }
 
-/* BURBUJA de mensaje flotante de bienvenida */
+/* Mensaje flotante de bienvenida */
 .nia-welcome-bubble {
   background-color: #FF9C9C;
   color: #000;
@@ -41,7 +41,7 @@
   animation: pop-in 0.4s ease;
   cursor: pointer;
   position: absolute;
-  bottom: 70px;
+  bottom: 76px;
   right: 0;
 }
 
@@ -55,11 +55,12 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  color: #000;
 }
 
 /* Cabecera del chat */
 .nia-header {
-  background-color: #FF9C9C;
+  background-color: #fff;
   color: #000;
   display: flex;
   align-items: center;
@@ -71,6 +72,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  flex-direction: row-reverse; /* Esto pone el nombre a la izquierda */
 }
 
 .nia-header img {
@@ -79,7 +81,7 @@
   border-radius: 50%;
 }
 
-/* Botón de minimizar dentro del chat */
+/* Botón de minimizar */
 .nia-minimize-button {
   background: transparent;
   border: none;
@@ -93,7 +95,7 @@
   flex: 1;
   padding: 10px;
   overflow-y: auto;
-  background: #fefefe;
+  background: #fff;
 }
 
 .nia-message {
@@ -103,6 +105,7 @@
   max-width: 80%;
   word-wrap: break-word;
   font-size: 14px;
+  color: #000;
 }
 
 .nia-message.user {
@@ -113,7 +116,6 @@
 .nia-message.bot {
   background-color: #FF9C9C;
   align-self: flex-start;
-  color: #000;
 }
 
 /* Entrada y botón de enviar */
@@ -130,6 +132,7 @@
   outline: none;
   padding: 8px;
   font-size: 14px;
+  color: #000;
 }
 
 .nia-send-button {
@@ -148,7 +151,7 @@
   color: #000;
 }
 
-/* Animación */
+/* Animación para el mensaje flotante */
 @keyframes pop-in {
   from {
     opacity: 0;
@@ -160,7 +163,7 @@
   }
 }
 
-/* Para evitar zoom en móviles */
+/* Evitar zoom en móviles */
 input,
 textarea {
   font-size: 16px;
