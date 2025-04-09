@@ -17,6 +17,10 @@
   border: none;
   cursor: pointer;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: fixed; /* ✅ Cambiado de absolute a fixed */
+  bottom: 20px;
+  right: 20px;
+  z-index: 10001; /* ✅ Asegura que quede por encima */
 }
 
 /* Burbuja de bienvenida */
@@ -28,11 +32,12 @@
   margin-right: 10px;
   max-width: 250px;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
-  position: absolute;
-  bottom: 70px;
-  right: 80px;
+  position: fixed; /* ✅ Cambiado de absolute a fixed */
+  bottom: 90px; /* ✅ Subida para estar sobre el ícono */
+  right: 90px;   /* ✅ Ajustada a la izquierda del ícono */
   cursor: pointer;
   display: none;
+  z-index: 10000; /* ✅ Para estar detrás del chat, pero encima del fondo */
 }
 
 /* Contenedor de chat */
@@ -46,9 +51,10 @@
   flex-direction: column;
   overflow: hidden;
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
-  position: absolute;
-  bottom: 80px;
-  right: 0;
+  position: fixed; /* ✅ Cambiado de absolute a fixed */
+  bottom: 90px; /* ✅ Aparece encima del ícono */
+  right: 20px;
+  z-index: 10002; /* ✅ Siempre encima de todo */
 }
 
 /* Encabezado */
