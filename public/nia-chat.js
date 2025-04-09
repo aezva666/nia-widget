@@ -22,60 +22,54 @@ niaContainer.appendChild(niaChatBox);
 niaContainer.appendChild(niaBubbleButton);
 document.body.appendChild(niaContainer);
 
-// Mostrar mensaje de bienvenida
-function showWelcomeMessage() {
-  const messages = document.getElementById("nia-messages");
-  const welcome = document.createElement("div");
-  welcome.className = "nia-message";
-  welcome.innerText = "¡Hola! Soy NIA, tu asistente. ¿En qué puedo ayudarte hoy?";
-  messages.appendChild(welcome);
-}
-
-// Toggle visibilidad
+// Estado del chat
 let isChatOpen = false;
+
 niaBubbleButton.addEventListener("click", () => {
   isChatOpen = !isChatOpen;
   niaChatBox.style.display = isChatOpen ? "flex" : "none";
-  if (isChatOpen) {
-    showWelcomeMessage();
+
+  if (isChatOpen && !niaChatBox.dataset.welcomeShown) {
+    const welcome = document.createElement("div");
+    welcome.className = "nia-message";
+    welcome.innerText = "¡Hola! Soy NIA, tu asistente. ¿En qué puedo ayudarte hoy?";
+    document.getElementById("nia-messages").appendChild(welcome);
+    niaChatBox.dataset.welcomeShown = "true";
   }
 });
 
-// Enviar mensaje
+// Lógica de envío
 document.addEventListener("DOMContentLoaded", () => {
-  const sendBtn = document.getElementById("nia-send");
   const input = document.getElementById("nia-input");
+  const send = document.getElementById("nia-send");
   const messages = document.getElementById("nia-messages");
 
   function sendMessage() {
     const text = input.value.trim();
     if (!text) return;
 
-    const userMessage = document.createElement("div");
-    userMessage.className = "user-message";
-    userMessage.innerText = text;
-    messages.appendChild(userMessage);
-
+    const userMsg = document.createElement("div");
+    userMsg.className = "user-message";
+    userMsg.innerText = text;
+    messages.appendChild(userMsg);
     input.value = "";
 
     fetch("https://nia-backend.vercel.app/nia", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message: text }),
     })
       .then((res) => res.json())
       .then((data) => {
-        const niaMessage = document.createElement("div");
-        niaMessage.className = "nia-message";
-        niaMessage.innerText = data.response;
-        messages.appendChild(niaMessage);
+        const niaMsg = document.createElement("div");
+        niaMsg.className = "nia-message";
+        niaMsg.innerText = data.response;
+        messages.appendChild(niaMsg);
         messages.scrollTop = messages.scrollHeight;
       });
   }
 
-  sendBtn.addEventListener("click", sendMessage);
+  send.addEventListener("click", sendMessage);
   input.addEventListener("keypress", (e) => {
     if (e.key === "Enter") sendMessage();
   });

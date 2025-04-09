@@ -1,45 +1,47 @@
-/* Contenedor flotante de NIA */
+/* CONTENEDOR FLOTANTE */
 #nia-container {
   position: fixed;
   bottom: 20px;
   right: 20px;
   z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
   font-family: Arial, sans-serif;
 }
 
-/* Botón minimizado con imagen de NIA */
+/* BOTÓN FLOTANTE (burbuja con imagen de NIA) */
 #nia-bubble-button {
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
-  background-color: white;
-  border: 2px solid #FF9C9C;
   background-image: url("https://aezva.com/wp-content/uploads/2025/04/nia-chat-1.webp");
   background-size: cover;
   background-position: center;
+  border: 2px solid #FF9C9C;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Ventana del chat */
+/* CAJA DEL CHAT */
 #nia-chat-box {
   display: none;
   flex-direction: column;
   width: 360px;
-  max-height: 500px;
+  height: 480px;
   background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  border-radius: 15px;
   margin-bottom: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   overflow: hidden;
 }
 
-/* Cabecera del chat */
+/* CABECERA DEL CHAT */
 #nia-header {
   display: flex;
   align-items: center;
   padding: 10px;
-  background-color: white;
+  background-color: #ffffff;
   border-bottom: 1px solid #ddd;
 }
 
@@ -52,41 +54,39 @@
 
 #nia-header span {
   font-weight: bold;
-  font-size: 16px;
   color: black;
 }
 
-/* Área de mensajes */
+/* MENSAJES */
 #nia-messages {
   flex: 1;
   padding: 10px;
   overflow-y: auto;
 }
 
-/* Estilo de los mensajes */
-.nia-message,
-.user-message {
-  max-width: 75%;
-  padding: 8px 12px;
-  margin-bottom: 10px;
-  border-radius: 12px;
-  clear: both;
-}
-
+/* BURBUJAS DE MENSAJES */
 .nia-message {
   background-color: #FF9C9C;
   color: black;
+  padding: 8px 12px;
+  border-radius: 15px;
+  margin-bottom: 10px;
+  max-width: 80%;
   align-self: flex-start;
 }
 
 .user-message {
   background-color: #f0f0f0;
   color: black;
+  padding: 8px 12px;
+  border-radius: 15px;
+  margin-bottom: 10px;
+  max-width: 80%;
   align-self: flex-end;
   margin-left: auto;
 }
 
-/* Input y botón */
+/* INPUT Y BOTÓN DE ENVÍO */
 #nia-input-area {
   display: flex;
   border-top: 1px solid #ddd;
@@ -102,11 +102,9 @@
 
 #nia-send {
   background-color: white;
-  color: black;
   border: none;
-  padding: 10px 16px;
+  padding: 10px;
   cursor: pointer;
-  transition: background-color 0.3s;
 }
 
 #nia-send:hover {
