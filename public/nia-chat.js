@@ -1,65 +1,93 @@
-// 👉 Inserta el CSS desde Vercel
-const cssLink = document.createElement("link");
-cssLink.rel = "stylesheet";
-cssLink.href = "https://nia-widget.vercel.app/nia-style.css";
-document.head.appendChild(cssLink);
+(function () {
+  const niaContainer = document.createElement('div');
+  niaContainer.id = 'nia-container';
 
-// 👉 Crea el contenedor del chat
-const niaContainer = document.createElement("div");
-niaContainer.className = "nia-chat-container";
-niaContainer.innerHTML = `
-  <div class="nia-chat-header">NIA Assistant</div>
-  <div class="nia-chat-messages" id="niaMessages"></div>
-  <div class="nia-chat-input">
-    <input type="text" id="niaInput" placeholder="Escribe tu mensaje..." />
-    <button id="niaSendBtn">Enviar</button>
-  </div>
-`;
-document.body.appendChild(niaContainer);
+  const niaBubble = document.createElement('div');
+  niaBubble.id = 'nia-bubble';
+  niaBubble.innerHTML = `<img src="https://aezva.com/wp-content/uploads/2025/04/nia-chat-1.webp" alt="NIA">`;
 
-// 👉 Función para agregar mensajes
-function addMessage(message, sender) {
-  const messages = document.getElementById("niaMessages");
-  const msg = document.createElement("div");
-  msg.className = `nia-message ${sender}`;
-  msg.textContent = message;
-  messages.appendChild(msg);
-  messages.scrollTop = messages.scrollHeight;
-}
+  niaContainer.innerHTML = `
+    <div id="nia-header">
+      <img src="https://aezva.com/wp-content/uploads/2025/04/nia-chat-1.webp" alt="NIA">
+      <span>NIA Assistant</span>
+      <button id="nia-minimize-button">–</button>
+    </div>
+    <div id="nia-messages"></div>
+    <div id="nia-input-container">
+      <input type="text" id="nia-input" placeholder="Escribe un mensaje..." />
+      <button id="nia-send-button">Enviar</button>
+    </div>
+  `;
 
-// 👉 Enviar mensaje al backend
-async function sendNiaMessage() {
-  const input = document.getElementById("niaInput");
-  const message = input.value.trim();
-  if (message === "") return;
+  document.body.appendChild(niaContainer);
+  document.body.appendChild(niaBubble);
 
-  addMessage(message, "user");
-  input.value = "";
+  const messagesContainer = document.getElementById('nia-messages');
+  const inputField = document.getElementById('nia-input');
+  const sendButton = document.getElementById('nia-send-button');
+  const minimizeButton = document.getElementById('nia-minimize-button');
 
-  try {
-    const response = await fetch("http://127.0.0.1:8000/nia", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ message })
-    });
+  function addMessage(message, isUser = false) {
+    const messageElement = document.createElement('div');
+    messageElement.className = isUser ? 'user-message' : 'nia-message';
 
-    const data = await response.json();
-    addMessage(data.response, "nia");
+    if (!isUser) {
+      const avatar = document.createElement('img');
+      avatar.src = 'https://aezva.com/wp-content/uploads/2025/04/nia-chat-1.webp';
+      avatar.className = 'nia-avatar';
+      messageElement.appendChild(avatar);
+    }
 
-  } catch (error) {
-    console.error("Connection error:", error);
-    addMessage("Hubo un error al conectar con NIA.", "nia");
+    const textNode = document.createElement('span');
+    textNode.textContent = message;
+
+    messageElement.appendChild(textNode);
+    messagesContainer.appendChild(messageElement);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
   }
-}
 
-// 👉 Evento para botón
-document.getElementById("niaSendBtn").addEventListener("click", sendNiaMessage);
+  function sendMessage() {
+    const message = inputField.value.trim();
+    if (!message) return;
 
-// 👉 Evento para presionar Enter
-document.getElementById("niaInput").addEventListener("keypress", function (e) {
-  if (e.key === "Enter") {
-    sendNiaMessage();
+    addMessage(message, true);
+    inputField.value = '';
+
+    fetch('https://nia-backend.aezva.com/nia', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.response) {
+          addMessage(data.response);
+        }
+      })
+      .catch((err) => {
+        console.error('Error al enviar el mensaje a NIA:', err);
+        addMessage('Ups, algo salió mal 😓');
+      });
   }
-});
+
+  sendButton.addEventListener('click', sendMessage);
+  inputField.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') sendMessage();
+  });
+
+  // Mensaje de bienvenida
+  window.addEventListener('load', () => {
+    addMessage('¡Hola! Soy NIA, tu asistente. ¿En qué puedo ayudarte hoy? 🤖');
+  });
+
+  // Minimizar y expandir
+  minimizeButton.addEventListener('click', () => {
+    niaContainer.style.display = 'none';
+    niaBubble.style.display = 'flex';
+  });
+
+  niaBubble.addEventListener('click', () => {
+    niaContainer.style.display = 'flex';
+    niaBubble.style.display = 'none';
+  });
+})();

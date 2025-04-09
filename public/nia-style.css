@@ -1,122 +1,133 @@
-/* Contenedor principal */
-.nia-chat-container {
+#nia-container {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  width: 320px;
-  height: 440px;
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  font-family: 'Arial', sans-serif;
+  width: 350px;
+  max-height: 500px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  background-color: white;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
   z-index: 9999;
 }
 
-/* Encabezado del chat */
-.nia-chat-header {
-  background-color: #ffffff;
-  color: #000000;
-  padding: 12px 16px;
-  font-weight: bold;
-  font-size: 16px;
+#nia-header {
+  background-color: white;
+  color: black;
+  padding: 10px;
   display: flex;
   align-items: center;
   gap: 10px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #eee;
 }
 
-/* Imagen de NIA en el encabezado */
-.nia-avatar-header {
-  width: 30px;
+#nia-header img {
   height: 30px;
+  width: 30px;
   border-radius: 50%;
-  object-fit: cover;
 }
 
-/* Área de mensajes */
-.nia-chat-messages {
-  flex: 1;
-  padding: 12px;
+#nia-header span {
+  font-weight: bold;
+  font-size: 16px;
+  flex-grow: 1;
+}
+
+#nia-minimize-button {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #aaa;
+  cursor: pointer;
+}
+
+#nia-messages {
+  flex-grow: 1;
+  padding: 10px;
   overflow-y: auto;
-  background-color: #ffffff;
 }
 
-/* Burbujas de mensajes */
-.nia-message-wrapper {
+.user-message, .nia-message {
+  margin: 8px 0;
   display: flex;
-  margin-bottom: 10px;
-  align-items: flex-end;
+  align-items: flex-start;
 }
 
-.nia-message-wrapper.nia {
-  flex-direction: row;
-}
-
-.nia-message-wrapper.user {
-  justify-content: flex-end;
-  flex-direction: row-reverse;
+.user-message span {
+  background: #eee;
+  color: black;
+  padding: 8px 12px;
+  border-radius: 15px;
+  max-width: 80%;
+  margin-left: auto;
 }
 
 .nia-message {
-  max-width: 80%;
-  padding: 10px 14px;
-  border-radius: 16px;
-  font-size: 14px;
-  color: #000000;
-  word-wrap: break-word;
+  flex-direction: row;
 }
 
-.nia-message.nia {
-  background-color: #FF9C9C;
-  margin-left: 8px;
-}
-
-.nia-message.user {
-  background-color: #e5e5e5;
-  margin-right: 8px;
-}
-
-/* Avatar en mensajes de NIA */
-.nia-avatar {
-  width: 24px;
-  height: 24px;
+.nia-message img.nia-avatar {
+  width: 25px;
+  height: 25px;
   border-radius: 50%;
-  object-fit: cover;
+  margin-right: 6px;
 }
 
-/* Entrada de texto y botón */
-.nia-chat-input {
+.nia-message span {
+  background: #FF9C9C;
+  color: black;
+  padding: 8px 12px;
+  border-radius: 15px;
+  max-width: 80%;
+}
+
+#nia-input-container {
   display: flex;
-  border-top: 1px solid #ddd;
-  background-color: #fff;
-  padding: 10px;
+  border-top: 1px solid #eee;
 }
 
-.nia-chat-input input {
-  flex: 1;
+#nia-input {
+  flex-grow: 1;
+  border: none;
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  outline: none;
   font-size: 14px;
+  outline: none;
 }
 
-.nia-chat-input button {
-  margin-left: 8px;
-  padding: 10px 14px;
-  border: 1px solid #ccc;
-  background-color: #ffffff;
-  color: #000000;
-  border-radius: 8px;
+#nia-send-button {
+  background: white;
+  color: black;
+  border: none;
+  padding: 10px 15px;
   cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s;
+  transition: background 0.3s;
 }
 
-.nia-chat-input button:hover {
+#nia-send-button:hover {
   background-color: #FF9C9C;
-  color: #000;
+}
+
+#nia-bubble {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 9999;
+}
+
+#nia-bubble img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
