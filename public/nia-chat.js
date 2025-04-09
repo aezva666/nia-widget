@@ -1,59 +1,82 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const chatContainer = document.getElementById("nia-chat-container");
-  const toggleBtn = document.getElementById("nia-toggle-btn");
+document.addEventListener("DOMContentLoaded", function () {
+  const container = document.createElement("div");
+  container.id = "nia-widget-container";
+
+  container.innerHTML = `
+    <div id="nia-welcome-bubble">¡Hola! ¿En qué puedo ayudarte?</div>
+    <button id="nia-floating-icon"></button>
+    <div id="nia-chat-box">
+      <div id="nia-chat-header">
+        <div style="display: flex; align-items: center;">
+          <img src="https://aezva.com/wp-content/uploads/2025/04/web-200x200-1.webp" />
+          NIA Assistant
+        </div>
+        <button id="nia-minimize-button">─</button>
+      </div>
+      <div id="nia-chat-messages"></div>
+      <div id="nia-chat-input-area">
+        <input type="text" id="nia-chat-input" placeholder="Escribe un mensaje..." />
+        <button id="nia-send-button">Enviar</button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(container);
+
+  const floatingIcon = document.getElementById("nia-floating-icon");
   const chatBox = document.getElementById("nia-chat-box");
-  const minimizeBtn = document.getElementById("nia-minimize");
+  const sendButton = document.getElementById("nia-send-button");
+  const input = document.getElementById("nia-chat-input");
+  const messages = document.getElementById("nia-chat-messages");
+  const minimizeBtn = document.getElementById("nia-minimize-button");
   const welcomeBubble = document.getElementById("nia-welcome-bubble");
-  const input = document.getElementById("nia-input");
-  const sendBtn = document.getElementById("nia-send");
-  const messagesContainer = document.getElementById("nia-messages");
 
   let hasInteracted = false;
-  let welcomeMessageSent = false;
+  let welcomeSent = false;
 
-  // Mostrar bienvenida al iniciar
-  welcomeBubble.style.display = "block";
+  function addMessage(text, from) {
+    const div = document.createElement("div");
+    div.className = from === "nia" ? "nia-message" : "user-message";
+    div.innerText = text;
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
+  }
 
-  function showChat() {
+  function openChat() {
     chatBox.style.display = "flex";
     welcomeBubble.style.display = "none";
-
-    if (!welcomeMessageSent) {
-      appendMessage("¡Hola! Soy NIA, tu asistente inteligente. ¿En qué puedo ayudarte hoy?", "nia-msg");
-      welcomeMessageSent = true;
+    if (!welcomeSent) {
+      addMessage("¡Hola! ¿En qué puedo ayudarte?", "nia");
+      welcomeSent = true;
     }
   }
 
   function minimizeChat() {
     chatBox.style.display = "none";
-
     if (!hasInteracted) {
       welcomeBubble.style.display = "block";
     }
   }
 
-  function appendMessage(text, type) {
-    const msg = document.createElement("div");
-    msg.className = type;
-    msg.textContent = text;
-    messagesContainer.appendChild(msg);
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
-  }
-
-  toggleBtn.addEventListener("click", showChat);
-  welcomeBubble.addEventListener("click", showChat);
-  minimizeBtn.addEventListener("click", minimizeChat);
-
-  sendBtn.addEventListener("click", () => {
-    const userMsg = input.value.trim();
-    if (userMsg) {
-      appendMessage(userMsg, "user-msg");
+  function sendMessage() {
+    const text = input.value.trim();
+    if (text !== "") {
+      addMessage(text, "user");
       input.value = "";
       hasInteracted = true;
-
-      setTimeout(() => {
-        appendMessage("Estoy aquí para ayudarte 😊", "nia-msg");
-      }, 500);
     }
+  }
+
+  floatingIcon.addEventListener("click", openChat);
+  welcomeBubble.addEventListener("click", openChat);
+  minimizeBtn.addEventListener("click", minimizeChat);
+  sendButton.addEventListener("click", sendMessage);
+  input.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") sendMessage();
   });
+
+  // Mostrar burbuja de bienvenida si no hay interacción previa
+  if (!hasInteracted) {
+    welcomeBubble.style.display = "block";
+  }
 });
