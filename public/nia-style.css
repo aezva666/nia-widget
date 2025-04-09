@@ -150,21 +150,22 @@
 }
 /* Notificación tipo "1" sobre el ícono */
 #nia-notification-badge {
-  position: fixed;
-  bottom: 66px; /* justo encima del icono */
-  right: 18px;
-  background-color: red;
-  color: white;
-  width: 18px;
-  height: 18px;
-  font-size: 12px;
-  text-align: center;
-  line-height: 18px;
-  border-radius: 50%;
-  font-weight: bold;
-  z-index: 10002;
   display: none;
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background-color: #FF9C9C;
+  color: black;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
 
 /* Ocultar la burbuja de bienvenida en móvil */
 @media (max-width: 768px) {
