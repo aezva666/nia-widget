@@ -76,8 +76,29 @@ document.addEventListener("DOMContentLoaded", function () {
       input.value = "";
       hasInteracted = true;
       notificationBadge.style.display = "none";
+  
+      // 🔁 Llama al backend de NIA
+      fetch("http://localhost:8000/nia", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message: text,
+          lang: "es"
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          addMessage(data.response, "nia");
+        })
+        .catch((error) => {
+          console.error("❌ Error al contactar con NIA:", error);
+          addMessage("Ups, no pude responder ahora. Intenta más tarde.", "nia");
+        });
     }
   }
+  
 
   floatingIcon.addEventListener("click", openChat);
   welcomeBubble.addEventListener("click", openChat);
