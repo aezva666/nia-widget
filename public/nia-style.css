@@ -151,10 +151,10 @@
 /* Notificación tipo "1" sobre el ícono */
 #nia-notification-badge {
   position: fixed;
-  bottom: 66px; /* justo encima del icono */
-  right: 26px;  /* pequeño ajuste para centrar sobre el ícono */
-  background-color: #FF9C9C; /* rosa NIA */
-  color: black; /* texto negro */
+  bottom: 66px;
+  right: 26px;
+  background-color: #FF9C9C !important;
+  color: black !important;
   width: 18px;
   height: 18px;
   font-size: 12px;
@@ -165,6 +165,7 @@
   z-index: 10002;
   display: none;
 }
+
 
 
 /* Ocultar la burbuja de bienvenida en móvil */
