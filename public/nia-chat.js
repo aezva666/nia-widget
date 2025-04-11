@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
       notificationBadge.style.display = "none";
   
       // 🔁 Llama al backend de NIA
-      fetch("http://localhost:8000/nia", {
+      fetch("https://niabackend-production.up.railway.app/nia", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
