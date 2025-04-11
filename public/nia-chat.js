@@ -76,6 +76,9 @@ document.addEventListener("DOMContentLoaded", function () {
       input.value = "";
       hasInteracted = true;
       notificationBadge.style.display = "none";
+
+      console.log("🌍 Enviando dominio:", window.location.hostname);
+
   
       // 🔁 Llama al backend de NIA
       fetch("https://niabackend-production.up.railway.app/nia", {
@@ -85,9 +88,11 @@ document.addEventListener("DOMContentLoaded", function () {
         },
         body: JSON.stringify({
           message: text,
-          lang: "es"
+          lang: "es",
+          domain: window.location.hostname  // ⬅️ esto es la clave
         }),
       })
+      
         .then((res) => res.json())
         .then((data) => {
           addMessage(data.response, "nia");
